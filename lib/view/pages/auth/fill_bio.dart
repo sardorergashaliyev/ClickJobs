@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:one_work/domen/model/edit_user_model.dart';
-import 'package:one_work/view/pages/home/general_page.dart';
+import 'package:one_work/view/pages/general/general_page.dart';
 import 'package:one_work/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';

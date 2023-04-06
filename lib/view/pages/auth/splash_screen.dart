@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../domen/service/local_store.dart';
 import '../../util/style/style.dart';
-import '../home/general_page.dart';
+import '../general/general_page.dart';
 import 'onboarding_page.dart';
 
 class SplashScreen extends StatefulWidget {
