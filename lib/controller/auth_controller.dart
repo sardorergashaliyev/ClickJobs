@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,7 +17,7 @@ class AuthController extends ChangeNotifier {
   bool isVisibility = true;
   String email1 = '';
   final AuthFacade authRepo = AuthRepo();
-  getProfile? profile = getProfile();
+  GetProfile? profile = GetProfile();
   int currentIndex = 0;
   String fcmtoken2 = '';
   String? imageUrl;

@@ -1,20 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:io';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:one_work/domen/model/edit_user_model.dart';
 import 'package:one_work/view/pages/home/general_page.dart';
 import 'package:one_work/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';
-import '../../util/components/custom_datePicker.dart';
-import '../../util/components/custom_phoneNumberInput.dart';
+import '../../util/components/custom_date_picker.dart';
+import '../../util/components/custom_phone_number_input.dart';
 import '../../util/components/custom_textfromfiled.dart';
 import '../../util/components/photo_editing.dart';
 import '../../util/components/unfocus.dart';
@@ -245,17 +241,17 @@ class _FillBioPageState extends State<FillBioPage> {
                                 imageUrl: state.imageUrl,
                               ));
                           Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (_) => GeneralPage()),
+                              MaterialPageRoute(builder: (_) => const GeneralPage()),
                               (route) => false);
                         }
                       },
                       child: AnimatedContainer(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         duration: const Duration(milliseconds: 400),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Style.primaryColor,
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(32)),
+                              BorderRadius.all(Radius.circular(32)),
                         ),
                         child: Center(
                           child: state.isLoading

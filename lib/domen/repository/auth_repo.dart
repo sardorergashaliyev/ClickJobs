@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:one_work/view/pages/auth/register_page.dart';
@@ -42,14 +44,14 @@ class AuthRepo implements AuthFacade {
   }
 
   @override
-  Future<getProfile?> getUser(BuildContext context) async {
+  Future<GetProfile?> getUser(BuildContext context) async {
     try {
       final token = await LocalStore.getAccessToken();
       var res = await dio.client(token: token).get(
             "/api/profile/applicant",
           );
       print("${res.data}");
-      return getProfile.fromJson(res.data);
+      return GetProfile.fromJson(res.data);
     } on DioError catch (e) {
       if (e.response?.statusCode == 401) {
         var res = await refreshToken(context);

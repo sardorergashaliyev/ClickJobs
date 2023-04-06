@@ -8,10 +8,12 @@ class DioService {
         if (token != null) "Authorization": "Bearer $token",
       },
     ))
-      ..interceptors.add(LogInterceptor(
-          responseBody: true,
-          requestBody: true,
-          requestHeader: true,
-          responseHeader: false));
+      ..interceptors.add(
+        LogInterceptor(
+            responseBody: true,
+            requestBody: true,
+            requestHeader: true,
+            responseHeader: false),
+      );
   }
 }

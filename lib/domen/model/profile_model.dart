@@ -1,23 +1,23 @@
-class getProfile {
+class GetProfile {
   Application? application;
   User? user;
 
-  getProfile({this.application, this.user});
+  GetProfile({this.application, this.user});
 
-  getProfile.fromJson(Map<String, dynamic> json) {
+  GetProfile.fromJson(Map<String, dynamic> json) {
     application = json['application'] != null
-        ? new Application.fromJson(json['application'])
+        ? Application.fromJson(json['application'])
         : null;
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.application != null) {
-      data['application'] = this.application!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (application != null) {
+      data['application'] = application!.toJson();
     }
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
@@ -49,86 +49,86 @@ class Application {
     if (json['academic_tests'] != null) {
       academicTests = <AcademicTests>[];
       json['academic_tests'].forEach((v) {
-        academicTests!.add(new AcademicTests.fromJson(v));
+        academicTests!.add(AcademicTests.fromJson(v));
       });
     }
     if (json['awards'] != null) {
       awards = <Awards>[];
       json['awards'].forEach((v) {
-        awards!.add(new Awards.fromJson(v));
+        awards!.add(Awards.fromJson(v));
       });
     }
     checkedSteps = json['checked_steps'] != null
-        ? new CheckedSteps.fromJson(json['checked_steps'])
+        ? CheckedSteps.fromJson(json['checked_steps'])
         : null;
     if (json['educations'] != null) {
       educations = <Educations>[];
       json['educations'].forEach((v) {
-        educations!.add(new Educations.fromJson(v));
+        educations!.add(Educations.fromJson(v));
       });
     }
     if (json['languages'] != null) {
       languages = <Languages>[];
       json['languages'].forEach((v) {
-        languages!.add(new Languages.fromJson(v));
+        languages!.add(Languages.fromJson(v));
       });
     }
     if (json['licences'] != null) {
       licences = <Licences>[];
       json['licences'].forEach((v) {
-        licences!.add(new Licences.fromJson(v));
+        licences!.add(Licences.fromJson(v));
       });
     }
     if (json['researches'] != null) {
       researches = <Researches>[];
       json['researches'].forEach((v) {
-        researches!.add(new Researches.fromJson(v));
+        researches!.add(Researches.fromJson(v));
       });
     }
     if (json['skills'] != null) {
       skills = <Skills>[];
       json['skills'].forEach((v) {
-        skills!.add(new Skills.fromJson(v));
+        skills!.add(Skills.fromJson(v));
       });
     }
     if (json['work_experiences'] != null) {
       workExperiences = <WorkExperiences>[];
       json['work_experiences'].forEach((v) {
-        workExperiences!.add(new WorkExperiences.fromJson(v));
+        workExperiences!.add(WorkExperiences.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.academicTests != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (academicTests != null) {
       data['academic_tests'] =
-          this.academicTests!.map((v) => v.toJson()).toList();
+          academicTests!.map((v) => v.toJson()).toList();
     }
-    if (this.awards != null) {
-      data['awards'] = this.awards!.map((v) => v.toJson()).toList();
+    if (awards != null) {
+      data['awards'] = awards!.map((v) => v.toJson()).toList();
     }
-    if (this.checkedSteps != null) {
-      data['checked_steps'] = this.checkedSteps!.toJson();
+    if (checkedSteps != null) {
+      data['checked_steps'] = checkedSteps!.toJson();
     }
-    if (this.educations != null) {
-      data['educations'] = this.educations!.map((v) => v.toJson()).toList();
+    if (educations != null) {
+      data['educations'] = educations!.map((v) => v.toJson()).toList();
     }
-    if (this.languages != null) {
-      data['languages'] = this.languages!.map((v) => v.toJson()).toList();
+    if (languages != null) {
+      data['languages'] = languages!.map((v) => v.toJson()).toList();
     }
-    if (this.licences != null) {
-      data['licences'] = this.licences!.map((v) => v.toJson()).toList();
+    if (licences != null) {
+      data['licences'] = licences!.map((v) => v.toJson()).toList();
     }
-    if (this.researches != null) {
-      data['researches'] = this.researches!.map((v) => v.toJson()).toList();
+    if (researches != null) {
+      data['researches'] = researches!.map((v) => v.toJson()).toList();
     }
-    if (this.skills != null) {
-      data['skills'] = this.skills!.map((v) => v.toJson()).toList();
+    if (skills != null) {
+      data['skills'] = skills!.map((v) => v.toJson()).toList();
     }
-    if (this.workExperiences != null) {
+    if (workExperiences != null) {
       data['work_experiences'] =
-          this.workExperiences!.map((v) => v.toJson()).toList();
+          workExperiences!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -160,13 +160,13 @@ class AcademicTests {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['id'] = this.id;
-    data['organization'] = this.organization;
-    data['pdf_url'] = this.pdfUrl;
-    data['score'] = this.score;
-    data['test_name'] = this.testName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['id'] = id;
+    data['organization'] = organization;
+    data['pdf_url'] = pdfUrl;
+    data['score'] = score;
+    data['test_name'] = testName;
     return data;
   }
 }
@@ -194,12 +194,12 @@ class Awards {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['award_name'] = this.awardName;
-    data['id'] = this.id;
-    data['organization'] = this.organization;
-    data['pdf_url'] = this.pdfUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['award_name'] = awardName;
+    data['id'] = id;
+    data['organization'] = organization;
+    data['pdf_url'] = pdfUrl;
     return data;
   }
 }
@@ -239,16 +239,16 @@ class CheckedSteps {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['academic_test'] = this.academicTest;
-    data['applicant_id'] = this.applicantId;
-    data['award'] = this.award;
-    data['education'] = this.education;
-    data['general_info'] = this.generalInfo;
-    data['id'] = this.id;
-    data['licences_certificate'] = this.licencesCertificate;
-    data['research'] = this.research;
-    data['work'] = this.work;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['academic_test'] = academicTest;
+    data['applicant_id'] = applicantId;
+    data['award'] = award;
+    data['education'] = education;
+    data['general_info'] = generalInfo;
+    data['id'] = id;
+    data['licences_certificate'] = licencesCertificate;
+    data['research'] = research;
+    data['work'] = work;
     return data;
   }
 }
@@ -291,17 +291,17 @@ class Educations {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_grade'] = this.applicantGrade;
-    data['applicant_id'] = this.applicantId;
-    data['degree_level'] = this.degreeLevel;
-    data['degree_name'] = this.degreeName;
-    data['end_year'] = this.endYear;
-    data['id'] = this.id;
-    data['max_grade'] = this.maxGrade;
-    data['pdf_url'] = this.pdfUrl;
-    data['start_year'] = this.startYear;
-    data['university'] = this.university;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_grade'] = applicantGrade;
+    data['applicant_id'] = applicantId;
+    data['degree_level'] = degreeLevel;
+    data['degree_name'] = degreeName;
+    data['end_year'] = endYear;
+    data['id'] = id;
+    data['max_grade'] = maxGrade;
+    data['pdf_url'] = pdfUrl;
+    data['start_year'] = startYear;
+    data['university'] = university;
     return data;
   }
 }
@@ -322,11 +322,11 @@ class Languages {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['id'] = this.id;
-    data['language'] = this.language;
-    data['level'] = this.level;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['id'] = id;
+    data['language'] = language;
+    data['level'] = level;
     return data;
   }
 }
@@ -354,12 +354,12 @@ class Licences {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['id'] = this.id;
-    data['licence_name'] = this.licenceName;
-    data['organization'] = this.organization;
-    data['pdf_url'] = this.pdfUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['id'] = id;
+    data['licence_name'] = licenceName;
+    data['organization'] = organization;
+    data['pdf_url'] = pdfUrl;
     return data;
   }
 }
@@ -393,14 +393,14 @@ class Researches {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['description'] = this.description;
-    data['id'] = this.id;
-    data['organization_name'] = this.organizationName;
-    data['position'] = this.position;
-    data['superviser'] = this.superviser;
-    data['superviser_email'] = this.superviserEmail;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['description'] = description;
+    data['id'] = id;
+    data['organization_name'] = organizationName;
+    data['position'] = position;
+    data['superviser'] = superviser;
+    data['superviser_email'] = superviserEmail;
     return data;
   }
 }
@@ -419,10 +419,10 @@ class Skills {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['id'] = this.id;
-    data['skill'] = this.skill;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['id'] = id;
+    data['skill'] = skill;
     return data;
   }
 }
@@ -468,18 +468,18 @@ class WorkExperiences {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['company_name'] = this.companyName;
-    data['company_website'] = this.companyWebsite;
-    data['description'] = this.description;
-    data['employment_type'] = this.employmentType;
-    data['end_month'] = this.endMonth;
-    data['end_year'] = this.endYear;
-    data['id'] = this.id;
-    data['start_month'] = this.startMonth;
-    data['start_year'] = this.startYear;
-    data['work_position'] = this.workPosition;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['company_name'] = companyName;
+    data['company_website'] = companyWebsite;
+    data['description'] = description;
+    data['employment_type'] = employmentType;
+    data['end_month'] = endMonth;
+    data['end_year'] = endYear;
+    data['id'] = id;
+    data['start_month'] = startMonth;
+    data['start_year'] = startYear;
+    data['work_position'] = workPosition;
     return data;
   }
 }
@@ -525,7 +525,7 @@ class User {
     if (json['blocked_organizations'] != null) {
       blockedOrganizations = <BlockedOrganizations>[];
       json['blocked_organizations'].forEach((v) {
-        blockedOrganizations!.add(new BlockedOrganizations.fromJson(v));
+        blockedOrganizations!.add(BlockedOrganizations.fromJson(v));
       });
     }
     city = json['city'];
@@ -544,34 +544,34 @@ class User {
     if (json['social_medias'] != null) {
       socialMedias = <SocialMedias>[];
       json['social_medias'].forEach((v) {
-        socialMedias!.add(new SocialMedias.fromJson(v));
+        socialMedias!.add(SocialMedias.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bio'] = this.bio;
-    if (this.blockedOrganizations != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['bio'] = bio;
+    if (blockedOrganizations != null) {
       data['blocked_organizations'] =
-          this.blockedOrganizations!.map((v) => v.toJson()).toList();
+          blockedOrganizations!.map((v) => v.toJson()).toList();
     }
-    data['city'] = this.city;
-    data['country'] = this.country;
-    data['date_of_birth'] = this.dateOfBirth;
-    data['email'] = this.email;
-    data['full_name'] = this.fullName;
-    data['id'] = this.id;
-    data['image_url'] = this.imageUrl;
-    data['invisible_age'] = this.invisibleAge;
-    data['lang'] = this.lang;
-    data['last_step'] = this.lastStep;
-    data['phone_number'] = this.phoneNumber;
-    data['profession'] = this.profession;
-    data['role'] = this.role;
-    if (this.socialMedias != null) {
+    data['city'] = city;
+    data['country'] = country;
+    data['date_of_birth'] = dateOfBirth;
+    data['email'] = email;
+    data['full_name'] = fullName;
+    data['id'] = id;
+    data['image_url'] = imageUrl;
+    data['invisible_age'] = invisibleAge;
+    data['lang'] = lang;
+    data['last_step'] = lastStep;
+    data['phone_number'] = phoneNumber;
+    data['profession'] = profession;
+    data['role'] = role;
+    if (socialMedias != null) {
       data['social_medias'] =
-          this.socialMedias!.map((v) => v.toJson()).toList();
+          socialMedias!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -595,21 +595,21 @@ class BlockedOrganizations {
     applicantId = json['applicant_id'];
     companyId = json['company_id'];
     companyInfo = json['company_info'] != null
-        ? new CompanyInfo.fromJson(json['company_info'])
+        ? CompanyInfo.fromJson(json['company_info'])
         : null;
     createdAt = json['created_at'];
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['company_id'] = this.companyId;
-    if (this.companyInfo != null) {
-      data['company_info'] = this.companyInfo!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['company_id'] = companyId;
+    if (companyInfo != null) {
+      data['company_info'] = companyInfo!.toJson();
     }
-    data['created_at'] = this.createdAt;
-    data['id'] = this.id;
+    data['created_at'] = createdAt;
+    data['id'] = id;
     return data;
   }
 }
@@ -649,16 +649,16 @@ class CompanyInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['city'] = this.city;
-    data['company_name'] = this.companyName;
-    data['country'] = this.country;
-    data['created_at'] = this.createdAt;
-    data['description'] = this.description;
-    data['email'] = this.email;
-    data['image_url'] = this.imageUrl;
-    data['phone_number'] = this.phoneNumber;
-    data['workers_count'] = this.workersCount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['city'] = city;
+    data['company_name'] = companyName;
+    data['country'] = country;
+    data['created_at'] = createdAt;
+    data['description'] = description;
+    data['email'] = email;
+    data['image_url'] = imageUrl;
+    data['phone_number'] = phoneNumber;
+    data['workers_count'] = workersCount;
     return data;
   }
 }
@@ -679,11 +679,11 @@ class SocialMedias {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['applicant_id'] = this.applicantId;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['applicant_id'] = applicantId;
+    data['id'] = id;
+    data['name'] = name;
+    data['url'] = url;
     return data;
   }
 }

@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
       context.read<AuthController>().getUser(context);
       var refreshToken = await LocalStore.getRefreshToken();
       getInfo();
+      // ignore: avoid_print
       print("refreshToken : $refreshToken");
     });
     super.initState();
