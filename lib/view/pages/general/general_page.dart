@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:one_work/view/pages/general/home_page.dart';
-import 'package:one_work/view/util/style/style.dart';
+import 'package:ClickJobs/view/pages/general/home_page.dart';
+import 'package:ClickJobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';
 
