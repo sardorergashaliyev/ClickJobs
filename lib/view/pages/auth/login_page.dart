@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 23),
                   child: Text(
-                    'OneWork',
+                    'ClickJobs',
                     style: Style.textStyleRegular(
                         size: 32, textColor: Style.primaryColor),
                   ),

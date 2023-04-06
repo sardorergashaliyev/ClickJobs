@@ -59,7 +59,7 @@ class _VerifyPageState extends State<VerifyPage> {
             ),
             56.verticalSpace,
             Text(
-              'OneWork',
+              'ClickJobs',
               style: Style.textStyleRegular(
                   size: 20, textColor: Style.primaryColor),
             ),
