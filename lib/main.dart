@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'OneWork',
+              title: 'ClickJobs',
               themeMode: isChangeTheme ? ThemeMode.light : ThemeMode.dark,
               theme: ThemeData(
                 primaryColor: Style.whiteColor,
