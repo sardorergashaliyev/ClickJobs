@@ -65,6 +65,9 @@ class CustomTextFrom extends StatelessWidget {
             const EdgeInsets.only(left: 24, right: 80, top: 12, bottom: 12),
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red, width: 0.0),
+          borderRadius: BorderRadius.all(
+            Radius.circular(12),
+          ),
         ),
         border: const OutlineInputBorder(
           borderSide: BorderSide(
