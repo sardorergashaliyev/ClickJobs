@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_work/controller/auth_controller.dart';
-import 'package:one_work/view/util/style/style.dart';
+import 'package:clickjobs/controller/auth_controller.dart';
+import 'package:clickjobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextFrom extends StatelessWidget {

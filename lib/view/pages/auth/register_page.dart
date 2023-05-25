@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:clickjobs/domen/service/app_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -67,16 +68,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   31.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
-                      final bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(s ?? "");
-
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter  email";
-                      } else if (!emailValid) {
-                        return "Email format not correct";
+                      if (AppValidators.isValidEmail(s ?? '')) {
+                        return null;
+                      } else {
+                        return "Email xato";
                       }
-                      return null;
                     },
                     controller: email,
                     hintext: '',
@@ -86,10 +82,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   16.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter password";
+                      if (AppValidators.isValidPassword(s ?? '')) {
+                        return null;
+                      } else {
+                        return "Parol xato";
                       }
-                      return null;
                     },
                     controller: password,
                     hintext: '',
@@ -99,12 +96,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   16.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter password confirmation";
-                      } else if (password.text != s) {
-                        return "Password confirmation does not match ";
+                      if (AppValidators.isValidConfirmPassword(
+                          password.text, s)) {
+                        return null;
+                      } else {
+                        return "Tasdiqlash parol xato";
                       }
-                      return null;
                     },
                     controller: confirmPassword,
                     hintext: '',
@@ -113,26 +110,31 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   context.watch<AuthController>().wrongPassword != null
                       ? Text(
-                          context.watch<AuthController>().wrongPassword ?? "")
+                          context.watch<AuthController>().wrongPassword ?? "",
+                        )
                       : SizedBox.shrink(),
                   32.verticalSpace,
                   Center(
                     child: GestureDetector(
-                        onTap: () {
-                          if (formKey.currentState?.validate() ?? false) {
-                            context.read<AuthController>().signUp(
-                                email: email.text,
-                                password: password.text,
-                                confirmPassword: confirmPassword.text,
-                                onSuccess: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => VerifyPage(
-                                            email: email.text,
-                                          )));
-                                });
-                          }
-                        },
-                        child: const AuthButton(text: 'Register')),
+                      onTap: () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          context.read<AuthController>().signUp(
+                              email: email.text,
+                              password: password.text,
+                              confirmPassword: confirmPassword.text,
+                              onSuccess: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => VerifyPage(
+                                      email: email.text,
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
+                      },
+                      child: const AuthButton(text: 'Register'),
+                    ),
                   ),
                   32.verticalSpace,
                   Row(
@@ -152,12 +154,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       16.horizontalSpace,
                       const SizedBox(
-                          width: 70,
-                          child: Divider(
-                            color: Style.greyColor90,
-                            thickness: 2,
-                            height: 50,
-                          )),
+                        width: 70,
+                        child: Divider(
+                          color: Style.greyColor90,
+                          thickness: 2,
+                          height: 50,
+                        ),
+                      ),
                     ],
                   ),
                   32.verticalSpace,
@@ -166,8 +169,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (_) => const LoginPage()),
-                          (route) => false);
+                        MaterialPageRoute(
+                          builder: (_) => const LoginPage(),
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: Center(
                       child: Column(
@@ -179,8 +185,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: TextStyle(color: Color(0xffBDBEC2)),
                               children: <TextSpan>[
                                 TextSpan(
-                                    text: 'Log in',
-                                    style: TextStyle(color: Color(0xff0E9D57))),
+                                  text: 'Log in',
+                                  style: TextStyle(
+                                    color: Color(0xff0E9D57),
+                                  ),
+                                )
                               ],
                             ),
                           ),

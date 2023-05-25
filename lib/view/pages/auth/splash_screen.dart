@@ -65,7 +65,9 @@ class _SplashScreenState extends State<SplashScreen> {
             34.verticalSpace,
             isLoading
                 ? LoadingAnimationWidget.fallingDot(
-                    color: Style.whiteColor, size: 50)
+                    color: Style.whiteColor,
+                    size: 50,
+                  )
                 : const SizedBox.shrink()
           ],
         ),

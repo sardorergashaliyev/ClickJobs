@@ -3,9 +3,9 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:one_work/controller/auth_controller.dart';
-import 'package:one_work/view/util/components/custom_textfromfiled.dart';
-import 'package:one_work/view/util/style/style.dart';
+import 'package:clickjobs/controller/auth_controller.dart';
+import 'package:clickjobs/view/util/components/custom_textfromfiled.dart';
+import 'package:clickjobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 import '../../../main.dart';
 import '../../util/components/drawer_column.dart';

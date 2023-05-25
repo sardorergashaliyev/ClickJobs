@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import '../domen/interface/auth_facade.dart';
 import '../domen/model/edit_user_model.dart';
@@ -11,7 +13,9 @@ import '../domen/repository/auth_repo.dart';
 import '../domen/service/local_store.dart';
 
 class AuthController extends ChangeNotifier {
+  UserCredential? userObject;
   String? wrongPassword;
+  bool? isGoogleLoading;
   bool isLoading = false;
   bool loadingLogin = false;
   bool isVisibility = true;
@@ -177,5 +181,32 @@ class AuthController extends ChangeNotifier {
     imageUrl = await authRepo.uploadImage(context, imagePath);
     isLoading = false;
     notifyListeners();
+  }
+
+  loginGoogle(VoidCallback onSuccess) async {
+    isGoogleLoading = true;
+    notifyListeners();
+    GoogleSignIn googleSignIn = GoogleSignIn();
+
+    try {
+      GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      GoogleSignInAuthentication? googleAuth = await googleUser!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      final userObj =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userObj.user?.email != null) {
+        userObject = userObj;
+        // sing in
+        onSuccess();
+        isGoogleLoading = false;
+        notifyListeners();
+        googleSignIn.signOut();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
