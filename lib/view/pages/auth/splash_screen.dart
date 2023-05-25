@@ -55,9 +55,13 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 250.h,
               width: 250.w,
             ),
-            Text('OneWork',
-                style: Style.textStyleRegular(
-                    size: 48, textColor: Style.whiteColor)),
+            Text(
+              'ClickJobs',
+              style: Style.textStyleRegular(
+                size: 48,
+                textColor: Style.whiteColor,
+              ),
+            ),
             34.verticalSpace,
             isLoading
                 ? LoadingAnimationWidget.fallingDot(
