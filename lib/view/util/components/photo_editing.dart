@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:one_work/view/util/style/style.dart';
+import 'package:ClickJobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/auth_controller.dart';

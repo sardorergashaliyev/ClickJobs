@@ -36,7 +36,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               ],
             ),
             Text(
-              'OneWork',
+              'ClickJobs',
               style: Style.textStyleRegular(
                   size: 32, textColor: Style.primaryColor),
             ),

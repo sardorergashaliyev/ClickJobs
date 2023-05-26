@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../domen/service/local_store.dart';
 import '../../util/style/style.dart';
-import '../home/general_page.dart';
+import '../general/general_page.dart';
 import 'onboarding_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 250.h,
               width: 250.w,
             ),
-            Text('OneWork',
+            Text('ClickJobs',
                 style: Style.textStyleRegular(
                     size: 48, textColor: Style.whiteColor)),
             34.verticalSpace,

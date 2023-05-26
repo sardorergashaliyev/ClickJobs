@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'OneWork',
+                    'ClickJobs',
                     style: Style.textStyleRegular(
                         size: 32, textColor: Style.primaryColor),
                   ),

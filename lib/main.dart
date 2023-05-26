@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ClickJobs/view/pages/auth/splash_screen.dart';
+import 'package:ClickJobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 import 'controller/auth_controller.dart';
 import 'domen/service/local_store.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'view/pages/auth/splash_screen.dart';
-import 'view/util/style/style.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'OneWork',
+              title: 'ClickJobs',
               themeMode: isChangeTheme ? ThemeMode.light : ThemeMode.dark,
               theme: ThemeData(
                 primaryColor: Style.whiteColor,

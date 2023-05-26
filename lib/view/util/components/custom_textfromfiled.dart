@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_work/controller/auth_controller.dart';
-import 'package:one_work/view/util/style/style.dart';
+import 'package:ClickJobs/controller/auth_controller.dart';
+import 'package:ClickJobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextFrom extends StatelessWidget {
@@ -65,6 +65,9 @@ class CustomTextFrom extends StatelessWidget {
             const EdgeInsets.only(left: 24, right: 80, top: 12, bottom: 12),
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red, width: 0.0),
+          borderRadius: BorderRadius.all(
+            Radius.circular(12),
+          ),
         ),
         border: const OutlineInputBorder(
           borderSide: BorderSide(
