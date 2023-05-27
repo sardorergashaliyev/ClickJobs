@@ -1,4 +1,4 @@
-import 'package:clickjobs/view/pages/general/home_page.dart';
+import 'package:clickjobs/view/pages/home/home_page.dart';
 import 'package:clickjobs/view/util/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';

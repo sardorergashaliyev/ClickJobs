@@ -15,7 +15,6 @@ import '../domen/service/local_store.dart';
 class AuthController extends ChangeNotifier {
   UserCredential? userObject;
   String? wrongPassword;
-  bool? isGoogleLoading;
   bool isLoading = false;
   bool loadingLogin = false;
   bool isVisibility = true;
@@ -184,7 +183,7 @@ class AuthController extends ChangeNotifier {
   }
 
   loginGoogle(VoidCallback onSuccess) async {
-    isGoogleLoading = true;
+    isLoading = true;
     notifyListeners();
     GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -201,7 +200,7 @@ class AuthController extends ChangeNotifier {
         userObject = userObj;
         // sing in
         onSuccess();
-        isGoogleLoading = false;
+        isLoading = false;
         notifyListeners();
         googleSignIn.signOut();
       }

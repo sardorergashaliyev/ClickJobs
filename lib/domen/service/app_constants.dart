@@ -1,5 +1,5 @@
 abstract class AppConstant {
   AppConstant._();
 
-  static const String baseUrl = "https://jobs-y6zk.onrender.com";
+  static const String baseUrl = "157.230.215.225:4000";
 }

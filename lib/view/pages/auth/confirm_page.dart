@@ -83,17 +83,18 @@ class _VerifyPageState extends State<VerifyPage> {
                 autoFocus: true,
                 controller: controller,
                 cursor: Cursor(
-                    color: Colors.black,
-                    enabled: true,
-                    width: 3,
-                    radius: const Radius.circular(24)),
+                  color: Colors.black,
+                  enabled: true,
+                  width: 3,
+                  radius: const Radius.circular(24),
+                ),
                 decoration: BoxLooseDecoration(
                   gapSpace: 10,
                   bgColorBuilder: FixedColorBuilder(
                     Colors.white,
                   ),
                   strokeColorBuilder: FixedColorBuilder(
-                    Colors.black,
+                    Colors.green,
                   ),
                 ),
                 onCodeSubmitted: (s) {},
@@ -108,15 +109,16 @@ class _VerifyPageState extends State<VerifyPage> {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 onPressed: () {
                   context.read<AuthController>().verifyEmail(
-                      code: controller.text,
-                      fcmtoken: context.read<AuthController>().fcmtoken2,
-                      email: widget.email ?? '',
-                      onSuccess: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (_) => const FillBioPage()),
-                            (route) => false);
-                      }, );
+                        code: controller.text,
+                        fcmtoken: context.read<AuthController>().fcmtoken2,
+                        email: widget.email ?? '',
+                        onSuccess: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (_) => const FillBioPage()),
+                              (route) => false);
+                        },
+                      );
                 },
                 child: context.watch<AuthController>().isLoading
                     ? Padding(

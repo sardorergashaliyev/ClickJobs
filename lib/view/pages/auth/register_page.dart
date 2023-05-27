@@ -2,11 +2,11 @@
 import 'package:clickjobs/domen/service/app_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';
 import '../../util/components/auth_button.dart';
 import '../../util/components/custom_textfromfiled.dart';
-import '../../util/components/google_facebook.dart';
 import '../../util/style/style.dart';
 import 'confirm_page.dart';
 import 'login_page.dart';
@@ -42,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    var state = context.read<AuthController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -66,6 +67,20 @@ class _RegisterPageState extends State<RegisterPage> {
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   31.verticalSpace,
+                  CustomTextFrom(
+                    validator: (s) {
+                      if (s != '') {
+                        return null;
+                      } else {
+                        return "Ismingizni kiritin";
+                      }
+                    },
+                    controller: email,
+                    hintext: '',
+                    label: 'Name',
+                    isObscure: false,
+                  ),
+                  16.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
                       if (AppValidators.isValidEmail(s ?? '')) {
@@ -119,7 +134,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       onTap: () {
                         if (formKey.currentState?.validate() ?? false) {
                           context.read<AuthController>().signUp(
-                              email: email.text,
+                              email: state.isLoading
+                                  ? email.text
+                                  : state.userObject?.user?.email ?? '',
                               password: password.text,
                               confirmPassword: confirmPassword.text,
                               onSuccess: () {
@@ -133,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               });
                         }
                       },
-                      child: const AuthButton(text: 'Register'),
+                      child: const Button(text: 'Register'),
                     ),
                   ),
                   32.verticalSpace,
@@ -164,7 +181,32 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                   32.verticalSpace,
-                  const GoogleFacebook(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.read<AuthController>().loginGoogle(() {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => VerifyPage(
+                                  email: email.text,
+                                ),
+                              ),
+                            );
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(child: Logo(Logos.google)),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Logo(Logos.facebook_logo)),
+                      ),
+                    ],
+                  ),
                   32.verticalSpace,
                   GestureDetector(
                     onTap: () {
