@@ -1,14 +1,16 @@
+import 'package:clickjobs/domen/service/app_validators.dart';
+import 'package:clickjobs/view/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ClickJobs/view/pages/auth/register_page.dart';
-import 'package:ClickJobs/view/pages/general/general_page.dart';
+import 'package:clickjobs/view/pages/auth/register_page.dart';
+import 'package:clickjobs/view/pages/general/general_page.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';
 import '../../util/components/auth_button.dart';
 import '../../util/components/custom_textfromfiled.dart';
-import '../../util/components/google_facebook.dart';
 import '../../util/style/style.dart';
-import 'forget_password.dart';
+import 'forgot_password.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -78,16 +80,11 @@ class _LoginPageState extends State<LoginPage> {
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   child: CustomTextFrom(
                     validator: (s) {
-                      final bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(s ?? "");
-
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter  email";
-                      } else if (!emailValid) {
-                        return "Email format not correct";
+                      if (AppValidators.isValidEmail(s)) {
+                        return null;
+                      } else {
+                        return "Email xato";
                       }
-                      return null;
                     },
                     controller: email,
                     hintext: '',
@@ -96,8 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: CustomTextFrom(
                     controller: password,
                     hintext: '',
@@ -131,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                         });
                   }
                 },
-                child: const AuthButton(text: 'Log in')),
+                child: const Button(text: 'Log in')),
           ),
           30.verticalSpace,
           InkWell(
@@ -141,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: const Center(
                 child: Text(
-                  'Forget password?',
+                  'Forgot password?',
                   style: TextStyle(
                     color: Color(0xff0E9D57),
                   ),
@@ -174,7 +170,30 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           24.verticalSpace,
-          const GoogleFacebook(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  context.read<AuthController>().loginGoogle(() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const HomePage(),
+                      ),
+                    );
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(child: Logo(Logos.google)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(child: Logo(Logos.facebook_logo)),
+              ),
+            ],
+          ),
           48.verticalSpace,
           SizedBox(
             width: 350,

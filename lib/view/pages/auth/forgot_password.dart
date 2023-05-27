@@ -4,7 +4,6 @@ import '../../util/components/auth_button.dart';
 import '../../util/components/custom_textfromfiled.dart';
 import '../../util/style/style.dart';
 
-
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
 
@@ -58,11 +57,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               ),
               child: CustomTextFrom(
                 hintext: '',
-                label: 'E-mail', isObscure: false,
+                label: 'E-mail',
+                isObscure: false,
               ),
             ),
             const Spacer(),
-            const AuthButton(text: 'Send Code')
+            const Button(text: 'Send Code'),
+            26.verticalSpace
           ],
         ),
       ),
