@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:clickjobs/domen/service/app_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';
 import '../../util/components/auth_button.dart';
 import '../../util/components/custom_textfromfiled.dart';
-import '../../util/components/google_facebook.dart';
 import '../../util/style/style.dart';
 import 'confirm_page.dart';
 import 'login_page.dart';
@@ -41,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    var state = context.read<AuthController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -67,16 +69,25 @@ class _RegisterPageState extends State<RegisterPage> {
                   31.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
-                      final bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(s ?? "");
-
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter  email";
-                      } else if (!emailValid) {
-                        return "Email format not correct";
+                      if (s != '') {
+                        return null;
+                      } else {
+                        return "Ismingizni kiritin";
                       }
-                      return null;
+                    },
+                    controller: email,
+                    hintext: '',
+                    label: 'Name',
+                    isObscure: false,
+                  ),
+                  16.verticalSpace,
+                  CustomTextFrom(
+                    validator: (s) {
+                      if (AppValidators.isValidEmail(s ?? '')) {
+                        return null;
+                      } else {
+                        return "Email xato";
+                      }
                     },
                     controller: email,
                     hintext: '',
@@ -86,10 +97,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   16.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter password";
+                      if (AppValidators.isValidPassword(s ?? '')) {
+                        return null;
+                      } else {
+                        return "Parol xato";
                       }
-                      return null;
                     },
                     controller: password,
                     hintext: '',
@@ -99,12 +111,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   16.verticalSpace,
                   CustomTextFrom(
                     validator: (s) {
-                      if (s?.isEmpty ?? true) {
-                        return "Please enter password confirmation";
-                      } else if (password.text != s) {
-                        return "Password confirmation does not match ";
+                      if (AppValidators.isValidConfirmPassword(
+                          password.text, s)) {
+                        return null;
+                      } else {
+                        return "Tasdiqlash parol xato";
                       }
-                      return null;
                     },
                     controller: confirmPassword,
                     hintext: '',
@@ -113,26 +125,33 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   context.watch<AuthController>().wrongPassword != null
                       ? Text(
-                          context.watch<AuthController>().wrongPassword ?? "")
+                          context.watch<AuthController>().wrongPassword ?? "",
+                        )
                       : SizedBox.shrink(),
                   32.verticalSpace,
                   Center(
                     child: GestureDetector(
-                        onTap: () {
-                          if (formKey.currentState?.validate() ?? false) {
-                            context.read<AuthController>().signUp(
-                                email: email.text,
-                                password: password.text,
-                                confirmPassword: confirmPassword.text,
-                                onSuccess: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => VerifyPage(
-                                            email: email.text,
-                                          )));
-                                });
-                          }
-                        },
-                        child: const AuthButton(text: 'Register')),
+                      onTap: () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          context.read<AuthController>().signUp(
+                              email: state.isLoading
+                                  ? email.text
+                                  : state.userObject?.user?.email ?? '',
+                              password: password.text,
+                              confirmPassword: confirmPassword.text,
+                              onSuccess: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => VerifyPage(
+                                      email: email.text,
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
+                      },
+                      child: const Button(text: 'Register'),
+                    ),
                   ),
                   32.verticalSpace,
                   Row(
@@ -152,22 +171,51 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       16.horizontalSpace,
                       const SizedBox(
-                          width: 70,
-                          child: Divider(
-                            color: Style.greyColor90,
-                            thickness: 2,
-                            height: 50,
-                          )),
+                        width: 70,
+                        child: Divider(
+                          color: Style.greyColor90,
+                          thickness: 2,
+                          height: 50,
+                        ),
+                      ),
                     ],
                   ),
                   32.verticalSpace,
-                  const GoogleFacebook(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.read<AuthController>().loginGoogle(() {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => VerifyPage(
+                                  email: email.text,
+                                ),
+                              ),
+                            );
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(child: Logo(Logos.google)),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Logo(Logos.facebook_logo)),
+                      ),
+                    ],
+                  ),
                   32.verticalSpace,
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (_) => const LoginPage()),
-                          (route) => false);
+                        MaterialPageRoute(
+                          builder: (_) => const LoginPage(),
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: Center(
                       child: Column(
@@ -179,8 +227,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: TextStyle(color: Color(0xffBDBEC2)),
                               children: <TextSpan>[
                                 TextSpan(
-                                    text: 'Log in',
-                                    style: TextStyle(color: Color(0xff0E9D57))),
+                                  text: 'Log in',
+                                  style: TextStyle(
+                                    color: Color(0xff0E9D57),
+                                  ),
+                                )
                               ],
                             ),
                           ),
