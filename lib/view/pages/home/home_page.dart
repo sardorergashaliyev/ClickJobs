@@ -1,14 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:clickjobs/controller/auth_controller.dart';
 import 'package:clickjobs/view/util/components/custom_textfromfiled.dart';
 import 'package:clickjobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
-import '../../../main.dart';
-import '../../util/components/drawer_column.dart';
 import '../../util/components/home_page_featured_jobs.dart';
 import '../../../domen/service/local_store.dart';
 import '../../util/components/popular_jobs_home.dart';
@@ -28,8 +23,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     homeController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<AuthController>().getUser(context);
-      var refreshToken = await LocalStore.getRefreshToken();
+      
+      var refreshToken = LocalStore.getToken();
       getInfo();
       // ignore: avoid_print
       print("refreshToken : $refreshToken");
@@ -44,37 +39,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   getInfo() async {
-    isChangedTheme = await LocalStore.getTheme();
+    isChangedTheme = LocalStore.getTheme();
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final state = context.watch<AuthController>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
           centerTitle: true,
-          actions: [
-            SizedBox(
-              height: 60.h,
-              width: 60.w,
-              child: state.profile?.user?.imageUrl != null
-                  ? Container(
-                      height: 120.h,
-                      width: 120.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image:
-                              NetworkImage('${state.profile?.user?.imageUrl}'),
-                        ),
-                      ),
-                    )
-                  : Image.asset(
-                      'assets/images/1.png',
-                    ),
-            ),
+          actions: const [
+            // SizedBox(
+            //   height: 60.h,
+            //   width: 60.w,
+            //   child: state.profile?.user?.imageUrl != null
+            //       ? Container(
+            //           height: 120.h,
+            //           width: 120.w,
+            //           decoration: BoxDecoration(
+            //             shape: BoxShape.circle,
+            //             image: DecorationImage(
+            //               image:
+            //                   NetworkImage('${state.profile?.user?.imageUrl}'),
+            //             ),
+            //           ),
+            //         )
+            //       : Image.asset(
+            //           'assets/images/1.png',
+            //         ),
+            // ),
           ],
           title: Column(
             children: [
@@ -90,24 +86,24 @@ class _HomePageState extends State<HomePage> {
           ),
           elevation: 0,
           backgroundColor: Colors.transparent),
-      drawer: Drawer(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        child: SafeArea(
-            child: DrawerColumn(
-          image: 'assets/images/2.png',
-          name: '${state.profile?.user?.fullName}',
-          switcher: DayNightSwitcher(
-            isDarkModeEnabled: !isChangedTheme,
-            onStateChanged: (isDarkModeEnabled) {
-              isChangedTheme = !isChangedTheme;
-              MyApp.of(context)!.change();
-              LocalStore.setTheme(isChangedTheme);
-              setState(() {});
-            },
-          ),
-          jobPosition: '${state.profile?.user?.profession}',
-        )),
-      ),
+      // drawer: Drawer(
+      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //   child: SafeArea(
+      //       child: DrawerColumn(
+      //     image: 'assets/images/2.png',
+      //     name: '${state.profile?.user?.fullName}',
+      //     switcher: DayNightSwitcher(
+      //       isDarkModeEnabled: !isChangedTheme,
+      //       onStateChanged: (isDarkModeEnabled) {
+      //         isChangedTheme = !isChangedTheme;
+      //         MyApp.of(context)!.change();
+      //         LocalStore.setTheme(isChangedTheme);
+      //         setState(() {});
+      //       },
+      //     ),
+      //     jobPosition: '${state.profile?.user?.profession}',
+      //   )),
+      // ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -227,8 +223,8 @@ class _HomePageState extends State<HomePage> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 6,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 24, left: 24),
+                    return const Padding(
+                      padding: EdgeInsets.only(right: 24, left: 24),
                       child: PopularJobs(
                         image:
                             'https://www.pngall.com/wp-content/uploads/12/Burger-King-PNG-Photo.png',

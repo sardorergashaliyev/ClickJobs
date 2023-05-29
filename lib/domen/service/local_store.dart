@@ -1,50 +1,34 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalStore {
-  LocalStore._();
+  static SharedPreferences? local;
 
-  static setOnBoarding(bool isBoarding) async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    local.setBool("OnBoarding", isBoarding);
+  static init() async {
+    local = await SharedPreferences.getInstance();
+  }
+  
+
+  static setTheme(bool value) {
+    local?.setBool("theme", value);
   }
 
-  static getOnBoarding() async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    return local.getBool("OnBoarding");
+  static bool getTheme() {
+    return local?.getBool("theme") ?? true;
   }
 
-  static setAccessToken(String token) async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    local.setString("AccessToken", token);
+  static setToken(String value) {
+    local?.setString("token", value);
+  }
+  
+  static setId(String id) {
+    local?.setString("id", id);
   }
 
-  static setRefreshToken(String token) async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    local.setString("RefreshToken", token);
+  static String getToken() {
+    return local?.getString("token") ?? '';
   }
 
-  static getAccessToken() async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    return local.getString("AccessToken");
-  }
-
-  static getRefreshToken() async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    return local.getString("RefreshToken");
-  }
-
-  static clearAll() async {
-    SharedPreferences local = await SharedPreferences.getInstance();
-    local.clear();
-  }
-
-  static setTheme(bool isLight) async {
-    SharedPreferences store = await SharedPreferences.getInstance();
-    store.setBool("theme", isLight);
-  }
-
-  static Future<bool> getTheme() async {
-    SharedPreferences store = await SharedPreferences.getInstance();
-    return store.getBool("theme") ?? true;
+  static clear() {
+    local?.clear();
   }
 }

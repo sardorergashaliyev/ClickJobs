@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import '../../../controller/auth_controller.dart';
 import '../../util/style/style.dart';
-import 'fill_bio.dart';
 
 class VerifyPage extends StatefulWidget {
   final String? email;
@@ -74,7 +73,9 @@ class _VerifyPageState extends State<VerifyPage> {
               child: Text(
                 'Enter your verification code from your email that we’ve sent',
                 style: Style.textStyleRegular2(
-                    size: 14, textColor: Style.greyColor90),
+                  size: 14,
+                  textColor: Style.greyColor90,
+                ),
               ),
             ),
             Padding(
@@ -108,17 +109,7 @@ class _VerifyPageState extends State<VerifyPage> {
                         MaterialStateProperty.all(Style.primaryDisabledColor)),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 onPressed: () {
-                  context.read<AuthController>().verifyEmail(
-                        code: controller.text,
-                        fcmtoken: context.read<AuthController>().fcmtoken2,
-                        email: widget.email ?? '',
-                        onSuccess: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (_) => const FillBioPage()),
-                              (route) => false);
-                        },
-                      );
+                  
                 },
                 child: context.watch<AuthController>().isLoading
                     ? Padding(

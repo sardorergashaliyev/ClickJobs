@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getTheme() async {
-    isChangeTheme = await LocalStore.getTheme();
+    isChangeTheme = LocalStore.getTheme();
 
     setState(() {});
   }

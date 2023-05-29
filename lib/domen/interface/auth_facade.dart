@@ -1,32 +1,19 @@
-import 'package:dio/dio.dart';
+import 'package:clickjobs/domen/model/sign_up_model.dart';
+import 'package:clickjobs/domen/model/user_model.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import '../model/application_model.dart';
-import '../model/edit_user_model.dart';
-import '../model/profile_model.dart';
 import '../model/token_model.dart';
 
 abstract class AuthFacade {
-  Future<Response?> signUp({required String email, required String password});
+  Future<Either<TokenModel, String>> login(String email, String password);
 
-  Future<Response?> login(
-      {required String email,
-      required String password,
-      required String fcmToken});
+  Future<Either<TokenModel, String>> logOut();
 
-  Future<TokenModel?> verifyEmail(
-      {required String email, required String code, required String fcmToken});
-
-  Future logout();
-
-  Future<TokenModel?> refreshToken(BuildContext context);
-
-  Future<GetProfile?> getUser(BuildContext context);
-
-  Future<ApplicationModel?> getApplication(BuildContext context, int userId);
-
-  Future editUser(BuildContext context, EditUserModel newUser);
-
-  Future createUser(BuildContext context, EditUserModel newUser);
-
-  Future uploadImage(BuildContext context, String imagePath);
+  Future<Either<UserModel, String>> getUser(BuildContext context);
+  Future<Either<SignUpModel, String>> createUser(
+    String username,
+    String email,
+    String password,
+    String role,
+  );
 }

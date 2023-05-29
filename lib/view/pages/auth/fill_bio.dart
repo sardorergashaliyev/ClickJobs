@@ -2,11 +2,6 @@ import 'dart:io';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:clickjobs/domen/model/edit_user_model.dart';
-import 'package:clickjobs/view/pages/general/general_page.dart';
-import 'package:clickjobs/view/util/style/style.dart';
 import 'package:provider/provider.dart';
 import '../../../controller/auth_controller.dart';
 import '../../util/components/custom_date_picker.dart';
@@ -65,7 +60,6 @@ class _FillBioPageState extends State<FillBioPage> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AuthController>();
-    final event = context.read<AuthController>();
     return OnUnFocusTap(
       child: Scaffold(
         body: SafeArea(
@@ -219,56 +213,7 @@ class _FillBioPageState extends State<FillBioPage> {
                       hintext: '',
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 20),
-                    child: InkWell(
-                      onTap: () async {
-                        if (formKey.currentState?.validate() ?? false) {
-                          state.getUploading(context, state.image?.path ?? '');
-                          event.createUser(
-                              context,
-                              EditUserModel(
-                                city: stateValue,
-                                dateOfBirth: dateOfBirth.text,
-                                invisibleAge: false,
-                                speciality: speciality.text,
-                                firstName: firstName.text,
-                                lastName: lastName.text,
-                                phoneNumber: phonenumber.text,
-                                bio: bio.text,
-                                country: countryValue,
-                                imageUrl: state.imageUrl,
-                              ));
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (_) => const GeneralPage()),
-                              (route) => false);
-                        }
-                      },
-                      child: AnimatedContainer(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        duration: const Duration(milliseconds: 400),
-                        decoration: const BoxDecoration(
-                          color: Style.primaryColor,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(32)),
-                        ),
-                        child: Center(
-                          child: state.isLoading
-                              ? LoadingAnimationWidget.fallingDot(
-                                  color: Style.whiteColor, size: 35)
-                              : Text(
-                                  'Next',
-                                  style: GoogleFonts.sourceSansPro(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                                ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
               ),
             ),
           ),

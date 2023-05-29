@@ -1,8 +1,12 @@
 import 'package:clickjobs/domen/service/app_constants.dart';
 import 'package:dio/dio.dart';
 
-class DioService {
-  Dio client({String? token}) {
+abstract class DioService {
+  DioService._();
+
+  static Dio client({
+    String? token,
+  }) {
     return Dio(BaseOptions(
       baseUrl: AppConstant.baseUrl,
       headers: {
@@ -11,12 +15,10 @@ class DioService {
         'Content-type': 'application/json'
       },
     ))
-      ..interceptors.add(
-        LogInterceptor(
-            responseBody: true,
-            requestBody: true,
-            requestHeader: true,
-            responseHeader: false),
-      );
+      ..interceptors.add(LogInterceptor(
+          responseBody: true,
+          requestBody: true,
+          requestHeader: true,
+          responseHeader: false));
   }
 }
