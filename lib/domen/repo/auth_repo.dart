@@ -11,6 +11,26 @@ import 'package:flutter/material.dart';
 class AuthRepo implements AuthFacade {
   bool isDataLoading = false;
   UserModel? userModel;
+  @override
+
+  // try {
+  //   final token = LocalStore.getToken();
+  //   var res = await DioService.client(token: token).get(
+  //     "/me/profile",
+  //   );
+  //   if (res.statusCode == 200) {
+  //     var res = await getUser(context, userId);
+  //     if (res != null) {
+  //       // ignore: use_build_context_synchronously
+  //       await getUser(context, userId);
+  //     }
+  //   } else {
+  //     return right(res.statusCode.toString());
+  //   }
+  //   return left(UserModel.fromJson(res.data));
+  // } catch (e) {
+  //   return right(ErrorHandler.getDioStatusMessage(e));
+  // }
 
   @override
   Future<Either<TokenModel, String>> login(
@@ -28,8 +48,6 @@ class AuthRepo implements AuthFacade {
     }
   }
 
-
-
   @override
   Future<Either<UserModel, String>> getUser(BuildContext context) async {
     try {
@@ -44,7 +62,7 @@ class AuthRepo implements AuthFacade {
         return right(res.statusCode.toString());
       }
     } catch (e) {
-      // ignore: unnecessary_brace_in_string_interps, avoid_print
+      // ignore: unnecessary_brace_in_string_interps
       print('Catch error: ${e}');
       return right(e.toString());
     }
@@ -57,11 +75,11 @@ class AuthRepo implements AuthFacade {
       final res = await DioService.client().post(
         "${AppConstant.baseUrl}/auth/signup",
         data: {
-              'email': email,
-              'password': password,
-              'username': username,
-              'role' : role
-            },
+          'email': email,
+          'password': password,
+          'username': username,
+          'role': role
+        },
       );
 
       if (res.statusCode == 200) {
@@ -70,14 +88,16 @@ class AuthRepo implements AuthFacade {
         return right(res.statusCode.toString());
       }
     } catch (e) {
-      // ignore: unnecessary_brace_in_string_interps, avoid_print
+      // ignore: unnecessary_brace_in_string_interps
       print('Catch error: ${e}');
       return right(e.toString());
     }
   }
-  
+
   @override
-  Future<Either<TokenModel, String>> logOut() {
+  Future<Either<TokenModel, String>> logOut(VoidCallback onSuccess) {
+    LocalStore.clear();
+    onSuccess();
     throw UnimplementedError();
   }
 }

@@ -117,14 +117,17 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: () {
                   if (formKey.currentState?.validate() ?? false) {
                     context.read<AuthController>().login(
-                        email: email.text,
-                        password: password.text,
-                        onSuccess: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (_) => const GeneralPage()),
-                              (route) => false);
-                        });
+                      email.text,
+                      password.text,
+                      onSuccess: () async {
+                        context.read<AuthController>().getApplicat(context);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (_) => const GeneralPage()),
+                            (route) => false);
+                      },
+                      context: context,
+                    );
                   }
                 },
                 child: const Button(text: 'Log in')),

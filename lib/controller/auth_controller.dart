@@ -1,25 +1,25 @@
-// ignore_for_file: avoid_print
-
+import 'package:clickjobs/domen/model/user_model.dart';
 import 'package:clickjobs/domen/repo/auth_repo.dart';
+import 'package:clickjobs/domen/service/local_store.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-import '../domen/interface/auth_facade.dart';
 
 class AuthController extends ChangeNotifier {
-  UserCredential? userObject;
-  String? wrongPassword;
   bool isLoading = false;
   bool loadingLogin = false;
   bool isVisibility = true;
+
+  UserCredential? userObject;
+  String? wrongPassword;
   String email1 = '';
-  final AuthFacade authRepo = AuthRepo();
-  int currentIndex = 0;
-  String fcmtoken2 = '';
-  String? imageUrl;
-  XFile? image;
+
   final ImagePicker picker = ImagePicker();
+  final AuthRepo authRepo = AuthRepo();
+
+  int currentIndex = 0;
+  XFile? image;
 
   getImageFromCamera() async {
     image = await picker.pickImage(source: ImageSource.camera);
@@ -38,50 +38,54 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
   }
 
-  signUp({
-    required String email,
-    required String password,
-    required String confirmPassword,
+  login(
+    String email,
+    String password, {
     required VoidCallback onSuccess,
+    required BuildContext context,
   }) async {
     isLoading = true;
     notifyListeners();
-    if (password == confirmPassword) {
-      var res = await authRepo.login(email, password);
-      email1 = email;
-      // ignore: unrelated_type_equality_checks
-      if (res == 200) {
-        isLoading = false;
-        notifyListeners();
-        onSuccess();
-      }
-    } else {
-      wrongPassword = "Error Password";
-      notifyListeners();
-    }
-  }
-
-  login({
-    required String email,
-    required String password,
-    required VoidCallback onSuccess,
-  }) async {
-    loadingLogin = true;
+    final res = await authRepo.login(email, password);
+    res.fold((l) {
+      LocalStore.setToken(l.token);
+      onSuccess.call();
+    }, (r) {
+      return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(r),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    });
+    isLoading = false;
     notifyListeners();
-
-    // var res = await authRepo.login(email, password);
-    // if (res?.statusCode == 200) {
-    //   var login = LoginModel.fromJson(res?.data);
-    //   LocalStore.setAccessToken(login.accessToken ?? "");
-    //   loadingLogin = false;
-    //   notifyListeners();
-    //   onSuccess();
-    // }
   }
 
-  logOut() {
-    authRepo.logOut();
-    // LocalStore.clearAll();
+  getApplicat(BuildContext context) async {
+    isLoading = true;
+    notifyListeners();
+    final res = await authRepo.getUser(context);
+    print('got youuuu');
+    res.fold((l) {
+      UserModel user = l;
+
+      // ignore: avoid_print
+      print('Modell: $user');
+    }, (r) {
+      return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(r),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    });
+    isLoading = false;
+    notifyListeners();
+  }
+
+  logOut(VoidCallback onSuccess) {
+    authRepo.logOut(onSuccess);
   }
 
   onChange() {
@@ -112,7 +116,25 @@ class AuthController extends ChangeNotifier {
         googleSignIn.signOut();
       }
     } catch (e) {
+      isLoading = true;
+      notifyListeners();
       debugPrint(e.toString());
     }
+  }
+
+  createUser({
+    required String email,
+    required String password,
+    required String username,
+    required String role,
+    required VoidCallback onSuccess,
+  }) async {
+    isLoading = true;
+    notifyListeners();
+    // ignore: unused_local_variable
+    final res = await authRepo.createUser(username, email, password, role);
+    isLoading = false;
+    notifyListeners();
+    onSuccess();
   }
 }

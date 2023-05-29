@@ -20,6 +20,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController email;
+  late TextEditingController name;
   late TextEditingController password;
   late TextEditingController confirmPassword;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -27,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     email = TextEditingController();
+    name = TextEditingController();
     password = TextEditingController();
     confirmPassword = TextEditingController();
     super.initState();
@@ -35,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void dispose() {
     password.dispose();
+    name.dispose();
     confirmPassword.dispose();
     email.dispose();
     super.dispose();
@@ -42,6 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var state = context.read<AuthController>();
     return Scaffold(
       body: SingleChildScrollView(
@@ -72,10 +76,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       if (s != '') {
                         return null;
                       } else {
-                        return "Ismingizni kiritin";
+                        return "Ismingizni kiriting";
                       }
                     },
-                    controller: email,
+                    controller: name,
                     hintext: '',
                     label: 'Name',
                     isObscure: false,
@@ -133,21 +137,21 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: GestureDetector(
                       onTap: () {
                         if (formKey.currentState?.validate() ?? false) {
-                          context.read<AuthController>().signUp(
-                              email: state.isLoading
-                                  ? email.text
-                                  : state.userObject?.user?.email ?? '',
-                              password: password.text,
-                              confirmPassword: confirmPassword.text,
-                              onSuccess: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => VerifyPage(
-                                      email: email.text,
+                          context.read<AuthController>().createUser(
+                                email: email.text,
+                                username: name.text,
+                                role: 'applicant',
+                                password: password.text,
+                                onSuccess: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => VerifyPage(
+                                        email: email.text,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              });
+                                  );
+                                },
+                              );
                         }
                       },
                       child: const Button(text: 'Register'),

@@ -6,13 +6,14 @@ import '../../pages/auth/register_page.dart';
 import '../style/style.dart';
 
 class DrawerColumn extends StatefulWidget {
-  final String name, image,jobPosition;
+  final String name, image, jobPosition;
   final Widget switcher;
   const DrawerColumn(
       {super.key,
       required this.name,
       required this.image,
-      required this.switcher, required this.jobPosition});
+      required this.switcher,
+      required this.jobPosition});
 
   @override
   State<DrawerColumn> createState() => _DrawerColumnState();
@@ -128,10 +129,15 @@ class _DrawerColumnState extends State<DrawerColumn> {
               16.horizontalSpace,
               GestureDetector(
                 onTap: () {
-                  context.read<AuthController>().logOut();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => const RegisterPage()),
-                      (route) => false);
+                  context.read<AuthController>().logOut(
+                    () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) => const RegisterPage(),
+                          ),
+                          (route) => false);
+                    },
+                  );
                 },
                 child: Text('Logout',
                     style: Style.textStyleRegular2(

@@ -7,7 +7,7 @@ import '../model/token_model.dart';
 abstract class AuthFacade {
   Future<Either<TokenModel, String>> login(String email, String password);
 
-  Future<Either<TokenModel, String>> logOut();
+  Future<Either<TokenModel, String>> logOut(VoidCallback onSuccess);
 
   Future<Either<UserModel, String>> getUser(BuildContext context);
   Future<Either<SignUpModel, String>> createUser(
