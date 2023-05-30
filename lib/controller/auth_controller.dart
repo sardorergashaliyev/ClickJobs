@@ -47,17 +47,20 @@ class AuthController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     final res = await authRepo.login(email, password);
-    res.fold((l) {
-      LocalStore.setToken(l.token);
-      onSuccess.call();
-    }, (r) {
-      return ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(r),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    });
+    res.fold(
+      (l) {
+        LocalStore.setToken(l.token);
+        onSuccess.call();
+      },
+      (r) {
+        return ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(r.toString()),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      },
+    );
     isLoading = false;
     notifyListeners();
   }
@@ -100,10 +103,10 @@ class AuthController extends ChangeNotifier {
 
     try {
       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      GoogleSignInAuthentication? googleAuth = await googleUser!.authentication;
+      GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
       );
       final userObj =
           await FirebaseAuth.instance.signInWithCredential(credential);
@@ -116,7 +119,7 @@ class AuthController extends ChangeNotifier {
         googleSignIn.signOut();
       }
     } catch (e) {
-      isLoading = true;
+      isLoading = false;
       notifyListeners();
       debugPrint(e.toString());
     }
@@ -127,14 +130,50 @@ class AuthController extends ChangeNotifier {
     required String password,
     required String username,
     required String role,
+    required BuildContext context,
     required VoidCallback onSuccess,
   }) async {
     isLoading = true;
     notifyListeners();
     // ignore: unused_local_variable
     final res = await authRepo.createUser(username, email, password, role);
+    // ignore: unrelated_type_equality_checks
+    if (res == '') {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(res.toString()),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    } else {
+      onSuccess();
+    }
     isLoading = false;
     notifyListeners();
-    onSuccess();
+  }
+
+  verificateEmail({
+    required String verCode,
+    required BuildContext context,
+    required VoidCallback onSuccess,
+  }) async {
+    isLoading = true;
+    notifyListeners();
+    final res = await authRepo.verificateCode(verCode);
+    // ignore: unrelated_type_equality_checks
+    if (res == '') {
+      onSuccess();
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(res.toString()),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+    isLoading = false;
+    notifyListeners();
   }
 }

@@ -44,7 +44,7 @@ class AuthRepo implements AuthFacade {
         return right(res.statusCode.toString());
       }
     } catch (e) {
-      return right(e.toString());
+      return right(e.hashCode.toString());
     }
   }
 
@@ -99,5 +99,28 @@ class AuthRepo implements AuthFacade {
     LocalStore.clear();
     onSuccess();
     throw UnimplementedError();
+  }
+  
+  
+  @override
+  Future<Either<TokenModel, String>> verificateCode(String verCode) async {
+    try {
+      final res = await DioService.client().post(
+        "${AppConstant.baseUrl}/auth/verify",
+        data: {
+          'code': verCode
+        },
+      );
+
+      if (res.statusCode == 200) {
+        return left(TokenModel.fromJson(res.data));
+      } else {
+        return right(res.statusCode.toString());
+      }
+    } catch (e) {
+      // ignore: unnecessary_brace_in_string_interps
+      print('Catch error: ${e}');
+      return right(e.toString());
+    }
   }
 }

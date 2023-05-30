@@ -138,6 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       onTap: () {
                         if (formKey.currentState?.validate() ?? false) {
                           context.read<AuthController>().createUser(
+                                context: context,
                                 email: email.text,
                                 username: name.text,
                                 role: 'applicant',
@@ -190,15 +191,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.read<AuthController>().loginGoogle(() {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => VerifyPage(
-                                  email: email.text,
+                          print('object1122');
+                          state.loginGoogle(
+                            () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => VerifyPage(
+                                    email: email.text,
+                                  ),
                                 ),
-                              ),
-                            );
-                          });
+                              );
+                            },
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

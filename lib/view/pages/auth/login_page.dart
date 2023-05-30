@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var state = context.read<AuthController>();
     return Scaffold(
       body: ListView(
         children: [
@@ -178,11 +179,18 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               GestureDetector(
                 onTap: () {
-                  context.read<AuthController>().loginGoogle(() {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const HomePage(),
-                      ),
+                  state.loginGoogle(() {
+                    state.login(
+                      state.userObject!.user!.email!,
+                      'password',
+                      onSuccess: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const HomePage(),
+                          ),
+                        );
+                      },
+                      context: context,
                     );
                   });
                 },

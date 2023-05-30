@@ -88,7 +88,8 @@ class _MyAppState extends State<MyApp> {
               darkTheme: ThemeData(
                 primaryColor: Style.darkBgcolorOfApp,
                 bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                    backgroundColor: Style.navBgcolorOfApp),
+                  backgroundColor: Style.navBgcolorOfApp,
+                ),
                 textTheme: TextTheme(
                   headlineLarge: Style.textStyleRegular(
                     size: 48,

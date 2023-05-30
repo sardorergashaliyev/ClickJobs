@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:clickjobs/view/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -104,20 +105,33 @@ class _VerifyPageState extends State<VerifyPage> {
               ),
             ),
             ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Style.primaryDisabledColor)),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                onPressed: () {
-                  
-                },
-                child: context.watch<AuthController>().isLoading
-                    ? Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: LoadingAnimationWidget.fallingDot(
-                            color: Style.whiteColor, size: 50),
-                      )
-                    : const Text("Check"))
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Style.primaryDisabledColor)),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              onPressed: () {
+                context.read<AuthController>().verificateEmail(
+                      verCode: controller.text,
+                      context: context,
+                      onSuccess: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => HomePage(),
+                          ),
+                          (route) => false,
+                        );
+                      },
+                    );
+              },
+              child: context.watch<AuthController>().isLoading
+                  ? Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: LoadingAnimationWidget.fallingDot(
+                          color: Style.whiteColor, size: 50),
+                    )
+                  : const Text("Check"),
+            )
           ],
         ),
       ),
